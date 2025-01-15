@@ -1,4 +1,4 @@
-const pg = require("../config/config")
+const pg = require("../config/db")
 
 const getAllSalesByIdUser = async(id_user) => {
     try{

@@ -26,7 +26,6 @@ const CaptureOrder = async () => {
 
     }
 }
-CaptureOrder()
 
 const CreateOrder = async (req) => {
   collect = {
@@ -43,7 +42,13 @@ const CreateOrder = async (req) => {
             value: req.body.total ,      // Valor de la compra debe tener formato adecuado (números decimales con 2 dígitos)
             breakdown: { itemTotal: { currencyCode: 'USD', value: req.body.total } },
           },
-          items:req.body.items,
+          items:[
+            {
+              name: 'TABLET MEDIANA',
+              unitAmount: { currencyCode: 'USD', value: '22.00' },
+              quantity: '10'
+            }
+          ],
           description: "VENTA DEL DIA 24 DE DICIEMRBE"
         },
         
@@ -53,14 +58,15 @@ const CreateOrder = async (req) => {
   };
 
   try {
-    /* console.log(collect.body.purchaseUnits[0].items)
-    console.log(collect) */
+
     const { result, ...httpResponse } = await ordersController.ordersCreate(collect);
     if(result){
         return result
     }
 
+
   } catch (error) {
+    console.log(error.statusCode)
     throw error
   }
 };
