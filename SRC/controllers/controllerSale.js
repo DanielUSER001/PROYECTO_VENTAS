@@ -1,6 +1,6 @@
 const {getAllSalesByIdUser, getSaleByIdUser, createSale, confirmSale} = require("../models/ventaModele")
 
-const getSales = async (req, res) => {
+const getSales = async (req, res, next) => {
     const id_user = req.body.id_user
     try {
         const {rows} = await getAllSalesByIdUser(id_user)
@@ -18,7 +18,7 @@ const getSales = async (req, res) => {
     }
 }
 
-const getSale = async (req, res) => {
+const getSale = async (req, res, next) => {
     const id_user = req.body.id_user
     try {
         const {rows} = await getSaleByIdUser(id_user)
@@ -57,22 +57,21 @@ const createSales = async (req, res, next) => {
 
 }
 
-const confirmSales = async (req, res, next) => {
+const confirmSales = async (saleId, status) => {
     try{
-        const producto = await confirmSale(req.params.id, req.body.estado)
+        const producto = await confirmSale(saleId, status)
         if(!producto){
-            return res.status(400).json({
+            return {
                 message: "ERROR AL CONFIRMAR LA VENTA VERFICA TU INFORMACIÓN ",
-            })
+            }
         }
-        res.status(200).json({
+        return {
             message: "VENTA CONFIRMADA CORRECTAMENTE",
             producto: producto
-        })
+        }
     }
-    catch(error) { next(error) }
+    catch(error) { throw error}
    
-
 }
 
 

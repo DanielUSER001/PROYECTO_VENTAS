@@ -1,4 +1,4 @@
-const getRole = require("../models/Role")
+const getRole = require("../models/user.models")
 
 exports.isAdmin = async (req, res, next) => {
     const user = req.user

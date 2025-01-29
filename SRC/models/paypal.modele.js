@@ -7,10 +7,10 @@ const cancelUrl = "http://localhost:5432/cancel";
 let collect = {}
 
 
-const CaptureOrder = async () => {
+const CaptureOrder = async (orderId) => {
   
     collect = {
-        id: "34J15553TV578901P",
+        id: orderId,
         prefer: 'return=minimal'
     }
 
@@ -42,17 +42,18 @@ const CreateOrder = async (req) => {
             value: req.body.total ,      // Valor de la compra debe tener formato adecuado (números decimales con 2 dígitos)
             breakdown: { itemTotal: { currencyCode: 'USD', value: req.body.total } },
           },
-          items:[
-            {
-              name: 'TABLET MEDIANA',
-              unitAmount: { currencyCode: 'USD', value: '22.00' },
-              quantity: '10'
-            }
-          ],
+          items:req.body.items,
           description: "VENTA DEL DIA 24 DE DICIEMRBE"
         },
         
       ],
+      paymentSource: { 
+        paypal: {
+          experienceContext: {
+            landingPage: "GUEST_CHECKOUT"
+          }
+        }
+      }
     },
     prefer: 'return=minimal',  // El valor debe ser return=minimal o return=representation
   };
@@ -63,6 +64,7 @@ const CreateOrder = async (req) => {
     if(result){
         return result
     }
+    
 
 
   } catch (error) {

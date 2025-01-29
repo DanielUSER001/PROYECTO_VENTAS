@@ -18,11 +18,11 @@ const validateBobyProduct = [
 
 ]
 
-// MIDDLEWARE PARA VALIDAR EL ID DE LA TAREA
-const validateIdProduct = [ 
+// MIDDLEWARE PARA VALIDAR EL IDs
+const validateId = [ 
     param("id")
     .notEmpty().withMessage("Id es requerido")
-    .isInt({gt: 0}).withMessage("id del Producto debe ser un numero diferente de cero y entero positivo")
+    .isInt({gt: 0}).withMessage("id debe ser un numero diferente de cero y entero positivo")
     .toInt()
 ]
 
@@ -44,7 +44,7 @@ const validateBodyUser = [
 
 module.exports = {
     validateBobyProduct,
-    validateIdProduct,
+    validateId,
     validateBodyUser
    
 }

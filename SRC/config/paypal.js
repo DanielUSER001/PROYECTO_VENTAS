@@ -7,7 +7,7 @@ if (!process.env.PAYPAL_CLIENT_ID || !process.env.PAYPAL_CLIENT_SECRET) {
   throw new Error('PAYPAL_CLIENT_ID o PAYPAL_CLIENT_SECRET no están definidas en el archivo .env');
 }
 
-const cliente = new Client({
+const cliente = new Client({ 
   clientCredentialsAuthCredentials: {
     oAuthClientId: process.env.PAYPAL_CLIENT_ID,
     oAuthClientSecret: process.env.PAYPAL_CLIENT_SECRET,
